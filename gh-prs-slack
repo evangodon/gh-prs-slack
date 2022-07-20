@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+
+TEMPLATE='
+  {{ range .}}
+  - {{ printf "%-60s %s" .title .url }}
+  {{- end -}}
+'
+
+gh pr list\
+  --limit 3 \
+  --author @me \
+  --json title,url \
+  --search "sort:created-asc" \
+  --template "$TEMPLATE"
